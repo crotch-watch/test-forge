@@ -40,3 +40,26 @@ it("should return NaN if invalid input is present", () => {
   // rather than using toBe method check for specific methods provided
   expect(result).toBeNaN()
 })
+
+it("should return NaN if array has empty elements", () => {
+  const numbers = []
+  numbers[5] = "1"
+
+  const result = add(numbers)
+
+  expect(result).toBeNaN()
+})
+
+it("should return 0 when [] is passed", () => {
+  const numbers = []
+
+  const result = add(numbers)
+
+  expect(result).toBe(0)
+})
+
+it("should throw an error when no argument is passed", () => {
+  const resultFn = () => add()
+
+  expect(resultFn).toThrow()
+})
