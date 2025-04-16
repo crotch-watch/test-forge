@@ -18,3 +18,25 @@ it("should reduce array to it's sum", () => {
   // assert
   expect(result).toBe(expectedResult)
 })
+
+// more than one test per unit to check expected behaviour
+// for each scenario
+it("should add number strings", () => {
+  const numbers = ["1", "2"]
+
+  const result = add(numbers)
+  // it's important to be mindful of introducing bugs while acting
+  // first check actions then units
+  const expectedResult = numbers.reduce((prev, curr) => +prev + +curr, 0)
+
+  expect(result).toBe(expectedResult)
+})
+
+it("should return NaN if invalid input is present", () => {
+  const numbers = ["invalid", 2]
+
+  const result = add(numbers)
+
+  // rather than using toBe method check for specific methods provided
+  expect(result).toBeNaN()
+})
