@@ -5,15 +5,20 @@ import { describe } from "vitest"
 
 const fake_http_response = { data: "test data" }
 
-vi.stubGlobal("fetch", async (url, options) => {
-  const response = {
-    ok: true,
-    json() {
-      return fake_http_response
+const fake_fetch = vi.fn(() => {
+  return new Promise((resolve) => {
+    const response = {
+      ok: true,
+      json() {
+        return new Promise((resolve) => resolve(fake_http_response))
+      }
     }
-  }
-  return response
+
+    resolve(response)
+  })
 })
+
+vi.stubGlobal("fetch", fake_fetch)
 
 describe("handle http requests", () => {
   it("should return data on valid request", () => {
